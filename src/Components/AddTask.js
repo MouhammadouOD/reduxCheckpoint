@@ -3,14 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { addtodo } from "../redux/actions";
 
 function AddTask() {
-  const todos = useSelector((state) => state.todo);
   const dispatch = useDispatch();
-  var nextId = todos.lenght;
-  console.log(nextId)
+  var nextId = useSelector((state) => Number(state.nextId));
+  console.log(nextId);
   useEffect(() => {
-    nextId = todos.lenght + 1;
     setId(nextId);
-  }, [todos]);
+  }, [nextId]);
 
   const [id, setId] = useState(nextId);
   const [description, setDescription] = useState();
@@ -44,10 +42,11 @@ function AddTask() {
           <select
             className="form-select"
             name="isDone"
+            value="select a status"
             aria-label="Default select example"
             onChange={(e) => setIsDone(e.target.value)}
           >
-            <option>isDone?</option>
+            <option >select a status</option>
             <option value="yes">yes</option>
             <option value="no">no</option>
           </select>

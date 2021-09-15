@@ -8,12 +8,10 @@ export function addtodo(newtodo){
     }
 }
 
-export function edittodo(id,description,isDone){
+export function edittodo([id , description,isDone]){
     return {
         type: EDIT,
-        id: id,
-        description : description,
-        isDone:isDone
+        payload: [id , description,isDone]
     }
 }
 

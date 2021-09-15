@@ -25,7 +25,8 @@ const initialState = {
       description: "Complete a meet",
       isDone: "no",
     }
-  ]
+  ], 
+  nextId:5
 };
 
 const taskreducer = (state = initialState, action) => {
@@ -34,16 +35,19 @@ const taskreducer = (state = initialState, action) => {
       return {
         ...state,
         todo: [...state.todo, action.payload],
+        nextId: state.nextId+1
       };
       
     case EDIT:
-      const selecttodo = state.todo.find((item) => item.id === action.id);
-      selecttodo.description = action.description;
-      selecttodo.isDone = action.isDone;
+      var copy = state.todo;
+      const newtodo = {id :action.payload[0] ,description :action.payload[1] , isDone : action.payload[2] }
+      copy.splice(Number(action.payload[0])-1 , 1  ,newtodo )
+      
 
+      
       return {
         ...state,
-        todo: [...state.todo[action.id], selecttodo],
+        todo: copy
       };
 
     default:

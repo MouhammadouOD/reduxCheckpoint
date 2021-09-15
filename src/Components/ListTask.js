@@ -7,21 +7,22 @@ import { useSelector } from 'react-redux';
 function ListTask() {
 
     const todos = useSelector( state => state.todo);
-    const [gtodo , setGtodo] = useState(todos);
     const [selectedtodo , setSelectedtodo] = useState(todos);
+
+    var donetodo = todos.filter((todo) => todo.isDone === 'yes');
+    var notdonetodo = todos.filter((todo) => todo.isDone === 'no');
     
-    useEffect(() => {
-      setGtodo(todos);
+    useEffect((e) => {
+      setSelectedtodo(todos);
     }, [todos])
 
-    var donetodo = gtodo.filter((todo) => todo.isDone === 'yes');
-    var notdonetodo = gtodo.filter((todo) => todo.isDone === 'no');
+    
 
     
     const filter = (e) =>{
       e.preventDefault();
       e.target.value === 'done' ? setSelectedtodo(donetodo) 
-      : e.target.value === 'all'? setSelectedtodo(gtodo)
+      : e.target.value === 'all'? setSelectedtodo(todos)
       :setSelectedtodo(notdonetodo);
     }
     
@@ -29,6 +30,14 @@ function ListTask() {
   var display = selectedtodo.map((todo) => 
     <Task id={todo.id} description={todo.description} isDone={todo.isDone}/>
   )
+
+  const style ={
+    display : 'flex' ,
+    flexWrap : 'wrap',
+    border : '1px solid black',
+    margin : '30px',
+    padding : '15px'
+  }
 
   return (
     <>
@@ -44,7 +53,7 @@ function ListTask() {
         <option value="notDone">Not Done</option>
       </select>
 
-      <div className="container border m-4 p-3 d-flex">
+      <div className="" style={style}>
         {display}
       </div>
     </>
